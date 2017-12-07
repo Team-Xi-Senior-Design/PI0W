@@ -1,0 +1,1 @@
+/usr/bin/cc     CMakeFiles/Bike.dir/src/Audio.c.o CMakeFiles/Bike.dir/src/Video.c.o CMakeFiles/Bike.dir/src/main.c.o  -o Bike -rdynamic 

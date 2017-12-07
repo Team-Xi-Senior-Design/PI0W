@@ -1,0 +1,3 @@
+/home/pi/Pi0W/CMakeFiles/edit_cache.dir
+/home/pi/Pi0W/CMakeFiles/rebuild_cache.dir
+/home/pi/Pi0W/CMakeFiles/Bike.dir
