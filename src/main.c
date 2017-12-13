@@ -9,10 +9,16 @@
 #include "main.h"
 #include "Audio.h"
 #include "Video.h"
-
+#include <ncurses.h>
 #include <stdio.h>
 
 int main(int argc, char* argv[]){
-	printf("Hello\n");
-	return (0);
+//	printf("Hello\n");
+	initscr();
+	addstr("Hello World");
+	refresh();
+	getch();
+
+	endwin();
+	return 0;
 }

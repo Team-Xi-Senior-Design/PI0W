@@ -1,0 +1,34 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/pi/Pi0W/src/Audio.c
+Audio.h
+/home/pi/Pi0W/src/Audio.h
+
+/home/pi/Pi0W/src/Audio.h
+
+/home/pi/Pi0W/src/Video.c
+Video.h
+/home/pi/Pi0W/src/Video.h
+
+/home/pi/Pi0W/src/Video.h
+
+/home/pi/Pi0W/src/main.c
+main.h
+/home/pi/Pi0W/src/main.h
+Audio.h
+/home/pi/Pi0W/src/Audio.h
+Video.h
+/home/pi/Pi0W/src/Video.h
+ncurses.h
+-
+stdio.h
+-
+
+/home/pi/Pi0W/src/main.h
+
