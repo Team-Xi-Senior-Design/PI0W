@@ -12,11 +12,18 @@
 #include <ncurses.h>
 #include <stdio.h>
 
+#define MONITOR_WIDTH 127
+#define MONITOR_HEIGHT 116
+
 int main(int argc, char* argv[]){
 //	printf("Hello\n");
 	initscr();
-	addstr("Hello World");
-	refresh();
+	int i = 1;
+	while(i<=MONITOR_HEIGHT){
+		printw("%i\n", i);
+		i++;
+		refresh();
+	}
 	getch();
 
 	endwin();
