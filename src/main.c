@@ -9,10 +9,23 @@
 #include "main.h"
 #include "Audio.h"
 #include "Video.h"
-
+#include <ncurses.h>
 #include <stdio.h>
 
+#define MONITOR_WIDTH 127
+#define MONITOR_HEIGHT 116
+
 int main(int argc, char* argv[]){
-	printf("Hello\n");
-	return (0);
+//	printf("Hello\n");
+	initscr();
+	int i = 1;
+	while(i<=MONITOR_HEIGHT){
+		printw("%i\n", i);
+		i++;
+		refresh();
+	}
+	getch();
+
+	endwin();
+	return 0;
 }
