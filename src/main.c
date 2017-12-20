@@ -17,15 +17,17 @@
 
 int main(int argc, char* argv[]){
 //	printf("Hello\n");
-	initscr();
-	int i = 1;
-	while(i<=MONITOR_HEIGHT){
-		printw("%i\n", i);
-		i++;
-		refresh();
-	}
-	getch();
+//	initscr();
+//	int i = 1;
+//	while(i<=MONITOR_HEIGHT){
+//		printw("%i\n", i);
+//		i++;
+//		refresh();
+//	}
+//	getch();
 
-	endwin();
+//	endwin();
+	initAudio();
+	testAudio();
 	return 0;
 }

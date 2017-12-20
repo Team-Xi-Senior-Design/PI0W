@@ -9,6 +9,10 @@
 /home/pi/Pi0W/src/Audio.c
 Audio.h
 /home/pi/Pi0W/src/Audio.h
+stdio.h
+-
+alsa/asoundlib.h
+-
 
 /home/pi/Pi0W/src/Audio.h
 

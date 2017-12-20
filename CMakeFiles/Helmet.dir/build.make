@@ -144,6 +144,7 @@ Helmet: CMakeFiles/Helmet.dir/src/main.c.o
 Helmet: CMakeFiles/Helmet.dir/build.make
 Helmet: /usr/lib/arm-linux-gnueabihf/libcurses.so
 Helmet: /usr/lib/arm-linux-gnueabihf/libform.so
+Helmet: /usr/lib/arm-linux-gnueabihf/libasound.so
 Helmet: CMakeFiles/Helmet.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/pi/Pi0W/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking C executable Helmet"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/Helmet.dir/link.txt --verbose=$(VERBOSE)

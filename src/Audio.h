@@ -17,6 +17,7 @@
  *****************************/
  
  void  initAudio();
+ void  testAudio();
  void  cleanUpAudio();
  void  audioFromNetwork();
  void* audioToNetwork(void*);
