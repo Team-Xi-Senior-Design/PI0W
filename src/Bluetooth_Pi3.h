@@ -10,17 +10,15 @@
 /*******************************************
  * External Includes                       *
  *******************************************/
-#include "VoiceCommands.h"
-
 
 /*******************************************
  * Function Prototypes                     *
  *******************************************/
-char* getAudio(void);
+int getAudio(char*, int);
 void sendAudio(char*);
 void sendData(char*);
 void initBluetooth_Pi3(void);
-void close(void);
+void closeBluetooth_Pi0W(void);
 
 
 #endif /* BLUETOOTH_PI3_H */

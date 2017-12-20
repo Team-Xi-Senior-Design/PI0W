@@ -11,21 +11,26 @@
 #include "Video.h"
 #include <ncurses.h>
 #include <stdio.h>
+#include "Bluetooth_Pi3.h"
 
 #define MONITOR_WIDTH 127
 #define MONITOR_HEIGHT 116
 
 int main(int argc, char* argv[]){
-//	printf("Hello\n");
 	initscr();
-	int i = 1;
-	while(i<=MONITOR_HEIGHT){
-		printw("%i\n", i);
-		i++;
+	initBluetooth_Pi3();
+	int size;
+	char dataBoi[256];
+
+	while(1){
+		size = 0;
+		size = getAudio(dataBoi, 255);
+		dataBoi[size] = 0;
+		printf("%s",dataBoi);
 		refresh();
 	}
-	getch();
 
+	closeBluetooth_Pi0W();
 	endwin();
 	return 0;
 }

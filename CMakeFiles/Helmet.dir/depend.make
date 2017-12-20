@@ -4,10 +4,14 @@
 CMakeFiles/Helmet.dir/src/Audio.c.o: src/Audio.c
 CMakeFiles/Helmet.dir/src/Audio.c.o: src/Audio.h
 
+CMakeFiles/Helmet.dir/src/Bluetooth_Pi3.c.o: src/Bluetooth_Pi3.c
+CMakeFiles/Helmet.dir/src/Bluetooth_Pi3.c.o: src/Bluetooth_Pi3.h
+
 CMakeFiles/Helmet.dir/src/Video.c.o: src/Video.c
 CMakeFiles/Helmet.dir/src/Video.c.o: src/Video.h
 
 CMakeFiles/Helmet.dir/src/main.c.o: src/Audio.h
+CMakeFiles/Helmet.dir/src/main.c.o: src/Bluetooth_Pi3.h
 CMakeFiles/Helmet.dir/src/main.c.o: src/Video.h
 CMakeFiles/Helmet.dir/src/main.c.o: src/main.c
 CMakeFiles/Helmet.dir/src/main.c.o: src/main.h

@@ -150,6 +150,33 @@ src/Audio.c.s:
 	$(MAKE) -f CMakeFiles/Helmet.dir/build.make CMakeFiles/Helmet.dir/src/Audio.c.s
 .PHONY : src/Audio.c.s
 
+src/Bluetooth_Pi3.o: src/Bluetooth_Pi3.c.o
+
+.PHONY : src/Bluetooth_Pi3.o
+
+# target to build an object file
+src/Bluetooth_Pi3.c.o:
+	$(MAKE) -f CMakeFiles/Helmet.dir/build.make CMakeFiles/Helmet.dir/src/Bluetooth_Pi3.c.o
+.PHONY : src/Bluetooth_Pi3.c.o
+
+src/Bluetooth_Pi3.i: src/Bluetooth_Pi3.c.i
+
+.PHONY : src/Bluetooth_Pi3.i
+
+# target to preprocess a source file
+src/Bluetooth_Pi3.c.i:
+	$(MAKE) -f CMakeFiles/Helmet.dir/build.make CMakeFiles/Helmet.dir/src/Bluetooth_Pi3.c.i
+.PHONY : src/Bluetooth_Pi3.c.i
+
+src/Bluetooth_Pi3.s: src/Bluetooth_Pi3.c.s
+
+.PHONY : src/Bluetooth_Pi3.s
+
+# target to generate assembly for a file
+src/Bluetooth_Pi3.c.s:
+	$(MAKE) -f CMakeFiles/Helmet.dir/build.make CMakeFiles/Helmet.dir/src/Bluetooth_Pi3.c.s
+.PHONY : src/Bluetooth_Pi3.c.s
+
 src/Video.o: src/Video.c.o
 
 .PHONY : src/Video.o
@@ -216,6 +243,9 @@ help:
 	@echo "... src/Audio.o"
 	@echo "... src/Audio.i"
 	@echo "... src/Audio.s"
+	@echo "... src/Bluetooth_Pi3.o"
+	@echo "... src/Bluetooth_Pi3.i"
+	@echo "... src/Bluetooth_Pi3.s"
 	@echo "... src/Video.o"
 	@echo "... src/Video.i"
 	@echo "... src/Video.s"

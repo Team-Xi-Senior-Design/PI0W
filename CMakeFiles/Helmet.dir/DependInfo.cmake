@@ -5,6 +5,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
   "/home/pi/Pi0W/src/Audio.c" "/home/pi/Pi0W/CMakeFiles/Helmet.dir/src/Audio.c.o"
+  "/home/pi/Pi0W/src/Bluetooth_Pi3.c" "/home/pi/Pi0W/CMakeFiles/Helmet.dir/src/Bluetooth_Pi3.c.o"
   "/home/pi/Pi0W/src/Video.c" "/home/pi/Pi0W/CMakeFiles/Helmet.dir/src/Video.c.o"
   "/home/pi/Pi0W/src/main.c" "/home/pi/Pi0W/CMakeFiles/Helmet.dir/src/main.c.o"
   )

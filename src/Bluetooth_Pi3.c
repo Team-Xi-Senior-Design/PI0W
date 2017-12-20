@@ -11,12 +11,15 @@
 #include <sys/socket.h>
 #include <string.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
 
 #include <bluetooth/bluetooth.h>
 #include <bluetooth/rfcomm.h>
 #include <bluetooth/hci.h>
+#include <bluetooth/hci_lib.h>
 
-static char* BluetoothAddr = "000.000.000.000";
+static char* BluetoothAddr = "B8:27:EB:EF:25:F4";
 #define CHANNEL_NUMBER 1
 static int sock;
 static char* receivedAudio;
@@ -27,10 +30,9 @@ static char* receivedAudio;
  * @param:
  * @return:
  */
-char* getAudio(){
-  memset(receivedAudio,AUDIO_BUFFER_SIZE,0);
-  recv(sock, receivedAudio,AUDIO_BUFFER_SIZE,0);
-  return receivedAudio;
+int getAudio(char* receivedAudio, int bytes){
+  memset(receivedAudio,bytes,0);
+  return read(sock, receivedAudio,bytes);
 }
 
 /*
@@ -39,7 +41,7 @@ char* getAudio(){
  * @return: NULL
  */
 void sendAudio(char* audio){
-  send(sock,audio,strlen(audio),0);
+  write(sock,audio,strlen(audio));
 }
 
 /*
@@ -48,7 +50,7 @@ void sendAudio(char* audio){
  * @return:NULL
  */
 void sendData(char* data){
-  send(sock,data,strlen(data),0);
+  write(sock,data,strlen(data));
 }
 
 /*
@@ -69,33 +71,24 @@ void initBluetooth_Pi3(){
 
   //printf("Local device %s\n", batostr(&di.bdaddr));
 
-  laddr.rc_family = AF_BLUETOOTH;
-  laddr.rc_bdaddr = di.bdaddr;
-  laddr.rc_channel = 0;
+  //laddr.rc_family = AF_BLUETOOTH;
+  //laddr.rc_bdaddr = di.bdaddr;
+  //laddr.rc_channel = 1;
 
   raddr.rc_family = AF_BLUETOOTH;
   str2ba(BluetoothAddr,&raddr.rc_bdaddr);
-  raddr.rc_channel = CHANNEL_NUMBER;  
+  raddr.rc_channel = CHANNEL_NUMBER;
 
   // Create a Socket to Bind with RFCOMM
   if( (sock = socket(AF_BLUETOOTH, SOCK_STREAM, BTPROTO_RFCOMM)) < 0) {
       perror("socket");
   }
 
-  // Bind socket to Bluetooth Address using RFCOMM
-  if(bind(sock, (struct sockaddr *)&laddr, sizeof(laddr)) < 0) {
-      perror("bind");
-      exit(1);
-  }
-
-  //printf("Remote device %s\n", argv[1]);
-
   // Connect to the Bluetooth Address using RFCOMM
   if(connect(sock, (struct sockaddr *)&raddr, sizeof(raddr)) < 0) {
       perror("connect");
-      exit(1);
-  }
-  return 0;
+		exit(1);
+	}
 }
 
 /*
