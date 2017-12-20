@@ -1,1 +1,0 @@
-/usr/bin/cc     CMakeFiles/Helmet.dir/src/Audio.c.o CMakeFiles/Helmet.dir/src/Video.c.o CMakeFiles/Helmet.dir/src/main.c.o  -o Helmet -rdynamic -lcurses -lform 
