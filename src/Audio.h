@@ -16,8 +16,10 @@
  * Function Prototypes       *
  *****************************/
  
- void  initAudio();
- void  testAudio();
+ void  initCapture();
+ void  testCapture();
+ void  initPlayback();
+ void  testPlayback();
  void  cleanUpAudio();
  void  audioFromNetwork();
  void* audioToNetwork(void*);
