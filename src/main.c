@@ -27,9 +27,9 @@ int main(int argc, char* argv[]){
 //	getch();
 
 //	endwin();
-	initCapture();
-	testCapture();
-//	initPlayback();
-//	testPlayback();
+//	initCapture();
+//	testCapture();
+	initPlayback();
+	testPlayback();
 	return 0;
 }
