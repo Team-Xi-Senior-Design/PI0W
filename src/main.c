@@ -9,6 +9,7 @@
 #include "main.h"
 #include "Audio.h"
 #include "Video.h"
+#include "gui.h"
 #include <ncurses.h>
 #include <stdio.h>
 #include "Bluetooth_Pi3.h"
@@ -17,20 +18,27 @@
 #define MONITOR_HEIGHT 116
 
 int main(int argc, char* argv[]){
-	initscr();
-	initBluetooth_Pi3();
+//	initscr();
+//	initBluetooth_Pi3();
 	int size;
 	char dataBoi[256];
+	createMainDisp();
+//	setConfig();
+//	printw("Hello world!!!!");
 
-	while(1){
-		size = 0;
-		size = getAudio(dataBoi, 255);
-		dataBoi[size] = 0;
-		printf("%s",dataBoi);
-		refresh();
-	}
+	dispSpeedKph(554);
 
-	closeBluetooth_Pi0W();
-	endwin();
+//	getch();
+
+//	while(1){
+//		size = 0;
+//		size = getAudio(dataBoi, 255);
+//		dataBoi[size] = 0;
+//		printf("%s",dataBoi);
+//		refresh();
+//	}
+
+//	closeBluetooth_Pi0W();
+//	endwin();
 	return 0;
 }
