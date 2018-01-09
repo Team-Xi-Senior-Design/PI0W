@@ -11,11 +11,13 @@
 #include "Video.h"
 #include <ncurses.h>
 #include <stdio.h>
+#include "Bluetooth_Pi3.h"
 
 #define MONITOR_WIDTH 127
 #define MONITOR_HEIGHT 116
 
 int main(int argc, char* argv[]){
+<<<<<<< HEAD
 //	printf("Hello\n");
 //	initscr();
 //	int i = 1;
