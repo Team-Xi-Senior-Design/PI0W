@@ -35,7 +35,7 @@ char *buffer;
 		fprintf(stderr, "unable to open pcm device: %s\n", snd_strerror(rc));
 		exit(1);
 	}else{
-		printf("successfully opened\n");
+		fprintf(stderr, "successfully opened\n");
 	}
 	//Allocate hw parameter objects
 	snd_pcm_hw_params_alloca(&params);
@@ -46,7 +46,7 @@ char *buffer;
 	//Signed 16-bit little-endian format
 	snd_pcm_hw_params_set_format(captureHandle, params, SND_PCM_FORMAT_S16_LE);
 	//two channels
-	snd_pcm_hw_params_set_channels(captureHandle, params, 2);
+	snd_pcm_hw_params_set_channels(captureHandle, params, 1);
 	//44100 bps samp rate
 	val = 44100;
 	snd_pcm_hw_params_set_rate_near(captureHandle, params, &val, &dir);
@@ -59,11 +59,11 @@ char *buffer;
 		fprintf(stderr,"unable to set hw parameters: %s\n", snd_strerror(rc));
 		exit(1);
 	}else{
-		printf("parameters sucessfully set\n");
+		fprintf(stderr, "parameters sucessfully set\n");
 	}
 	//Set buffer
 	snd_pcm_hw_params_get_period_size(params, &frames, &dir);
-	size = frames * 4; //2 byte/sample, 2 channels
+	size = frames * 2; //2 byte/sample, 2 channels
 	buffer = (char*) malloc(size);
 	//Set period
 	snd_pcm_hw_params_get_period_time(params, &val, &dir);
@@ -94,7 +94,7 @@ char *buffer;
 	//Signed 16-bit little-endian format
 	snd_pcm_hw_params_set_format(playbackHandle, params, SND_PCM_FORMAT_S16_LE);
 	//one channels
-	snd_pcm_hw_params_set_channels(playbackHandle, params, 2);
+	snd_pcm_hw_params_set_channels(playbackHandle, params, 1);
 	//44100 bps samp rate
 	val = 44100;
 	snd_pcm_hw_params_set_rate_near(playbackHandle, params, &val, &dir);
@@ -111,7 +111,7 @@ char *buffer;
 	}
 	//Set buffer
 	snd_pcm_hw_params_get_period_size(params, &frames, &dir);
-	size = frames * 4; //2 byte/sample, 2 channels
+	size = frames * 2; //2 byte/sample, 2 channels
 	buffer = (char*) malloc(size);
 	//Set period
 	snd_pcm_hw_params_get_period_time(params, &val, &dir);
