@@ -17,9 +17,9 @@
  *****************************/
  
  void  initCapture();
- void  testCapture();
+ int  testCapture(char*);
  void  initPlayback();
- void  testPlayback();
+ void  testPlayback(char*, int);
  void  cleanUpAudio();
  void  audioFromNetwork();
  void* audioToNetwork(void*);

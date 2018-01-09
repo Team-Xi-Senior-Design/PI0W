@@ -27,9 +27,13 @@ int main(int argc, char* argv[]){
 //	getch();
 
 //	endwin();
-//	initCapture();
-//	testCapture();
+	char buffer[2048000];
+	initCapture();
 	initPlayback();
-	testPlayback();
+	while(1){
+		int rc = testCapture(buffer);
+		fprintf(stderr,"read: %d bytes\n",rc);
+		testPlayback(buffer, rc);
+	}
 	return 0;
 }
