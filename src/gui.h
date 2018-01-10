@@ -7,9 +7,9 @@ static uint8_t  micOpen;
 
 static uint8_t  mute;
 
-cairo_surface_t *mainSurface;
+//cairo_surface_t *mainSurface;
 
-cairo_t *mainDisp;
+//cairo_t *mainDisp;
 
 void createMainDisp();
 
@@ -22,9 +22,10 @@ void dispFuelLevel(const int32_t levelPersent);
 void dispRpm(const int32_t rpm);
 
 void dispPackName(const char* packname);
+
 void dispChatRoomName(const char* roomName);
 
-void dispRoomMembers(const char** roomMembers);
+void dispRoomMembers(char** roomMembers, const int numbMembers);
 
 void setMicIcon(const uint8_t micState);
 
