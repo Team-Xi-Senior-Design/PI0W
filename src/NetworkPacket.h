@@ -13,6 +13,15 @@
 #include <stdint.h>
 
 /*******************************************
+ * External defines
+ *******************************************/
+
+#define BUFFER_SIZE 2048
+
+#define OBDII_DATA 0
+#define VOICE_DATA 1
+
+/*******************************************
  * TypeDef Struct                          *
  *******************************************/
 typedef struct{
@@ -21,5 +30,11 @@ typedef struct{
 	uint32_t size;
 	char data[BUFFER_SIZE];
 }packet_t;
+
+typedef struct {
+	int32_t fuelLevel;
+	int32_t speed;
+	int32_t rpm;
+}obd2data_t;
 
 #endif /* BLUETOOTH_PI3_H */

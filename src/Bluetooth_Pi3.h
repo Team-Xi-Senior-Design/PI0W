@@ -10,13 +10,13 @@
 /*******************************************
  * External Includes                       *
  *******************************************/
-#include "NetworkPackage.h"
 
 /*******************************************
  * Function Prototypes                     *
  *******************************************/
-void getBluetoothData(packet_t*);
-void sendBluetoothData(packet_t*);
+int getAudio(char*, int);
+void sendAudio(char*);
+void sendData(char*);
 void initBluetooth_Pi3(void);
 void closeBluetooth_Pi0W(void);
 

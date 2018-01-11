@@ -22,27 +22,35 @@
 static char* BluetoothAddr = "B8:27:EB:EF:25:F4";
 #define CHANNEL_NUMBER 1
 static int sock;
+static char* receivedAudio;
+#define AUDIO_BUFFER_SIZE 255
 
 /*
  * Description:
  * @param:
  * @return:
  */
-void getBluetoothData(packet_t* receivedPacket){
-  memset(receivedPacket,0,sizeof(recievedPacket));
-  int bytesRead = 0;
-  while(bytesRead < sizeof(recievedPacket)){
-    bytesRead += read(sock, receivedPacket,sizeof(recievedPacket));
-  }
+int getAudio(char* receivedAudio, int bytes){
+  memset(receivedAudio,bytes,0);
+  return read(sock, receivedAudio,bytes);
+}
+
+/*
+ * Description: Sends audio across the Bluetooth connection to the Pi3
+ * @param: audio
+ * @return: NULL
+ */
+void sendAudio(char* audio){
+  write(sock,audio,strlen(audio));
 }
 
 /*
  * Description: Sends data across the Bluetooth connection to the Pi3
- * @param: packetToSend
+ * @param: data
  * @return:NULL
  */
-void sendBluetoothData(packet_t* packetToSend){
-  write(sock, packetToSend, sizeof(packetToSend));
+void sendData(char* data){
+  write(sock,data,strlen(data));
 }
 
 /*
@@ -54,6 +62,7 @@ void initBluetooth_Pi3(){
   int d;
   struct sockaddr_rc laddr, raddr;
   struct hci_dev_info di;
+  receivedAudio = malloc(AUDIO_BUFFER_SIZE);
 
   if(hci_devinfo(0, &di) < 0) {
       perror("HCI device info failed");
@@ -72,14 +81,14 @@ void initBluetooth_Pi3(){
 
   // Create a Socket to Bind with RFCOMM
   if( (sock = socket(AF_BLUETOOTH, SOCK_STREAM, BTPROTO_RFCOMM)) < 0) {
-    perror("socket");
+      perror("socket");
   }
 
   // Connect to the Bluetooth Address using RFCOMM
   if(connect(sock, (struct sockaddr *)&raddr, sizeof(raddr)) < 0) {
-     perror("connect");
-     exit(1);
-  }
+      perror("connect");
+		exit(1);
+	}
 }
 
 /*
@@ -89,4 +98,5 @@ void initBluetooth_Pi3(){
  */
 void closeBluetooth_Pi0W(){
 	close(sock);
+	free(receivedAudio);
 }

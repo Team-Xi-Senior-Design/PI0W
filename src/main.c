@@ -17,25 +17,20 @@
 #define MONITOR_HEIGHT 116
 
 int main(int argc, char* argv[]){
-<<<<<<< HEAD
-//	printf("Hello\n");
-//	initscr();
-//	int i = 1;
-//	while(i<=MONITOR_HEIGHT){
-//		printw("%i\n", i);
-//		i++;
-//		refresh();
-//	}
-//	getch();
+	initscr();
+	initBluetooth_Pi3();
+	int size;
+	char dataBoi[256];
 
-//	endwin();
-	char buffer[2048000];
-	initCapture();
-	initPlayback();
 	while(1){
-		int rc = testCapture(buffer);
-		fprintf(stderr,"read: %d bytes\n",rc);
-		testPlayback(buffer, rc);
+		size = 0;
+		size = getAudio(dataBoi, 255);
+		dataBoi[size] = 0;
+		printf("%s",dataBoi);
+		refresh();
 	}
+
+	closeBluetooth_Pi0W();
+	endwin();
 	return 0;
 }
