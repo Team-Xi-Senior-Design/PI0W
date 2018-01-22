@@ -5,6 +5,7 @@
  */
 
 #include "Bluetooth_Pi3.h"
+#include "Global.h"
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <sys/types.h>
@@ -40,8 +41,8 @@ int getAudio(char* receivedAudio, int bytes){
  * @param: audio
  * @return: NULL
  */
-void sendAudio(char* audio){
-  write(sock,audio,strlen(audio));
+void sendAudio(packet_t* audio, int size){
+  write(sock,audio,size);
 }
 
 /*
@@ -49,8 +50,8 @@ void sendAudio(char* audio){
  * @param: data
  * @return:NULL
  */
-void sendData(char* data){
-  write(sock,data,strlen(data));
+void sendData(packet_t* data, int size){
+  write(sock,data,size);
 }
 
 /*
@@ -99,4 +100,13 @@ void initBluetooth_Pi3(){
 void closeBluetooth_Pi0W(){
 	close(sock);
 	free(receivedAudio);
+}
+
+void* handleBluetooth(void* params){
+	packet_t packet;
+	while(1)
+	{
+		read(audioPipeBlue[0], &packet, sizeof(packet_t));
+		sendData(&packet, sizeof(packet_t));
+	}
 }

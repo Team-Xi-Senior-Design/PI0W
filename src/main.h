@@ -10,6 +10,6 @@
 /*************************
  * Functional Prototypes *
  *************************/
-int main(int, char* []);
+int main(int, char*[]);
 
 #endif /* MAIN_H */

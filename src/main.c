@@ -9,28 +9,33 @@
 #include "main.h"
 #include "Audio.h"
 #include "Video.h"
+#include "NetworkPacket.h"
+#include "Global.h"
 #include <ncurses.h>
 #include <stdio.h>
+#include <pthread.h>
+#include <unistd.h>
 #include "Bluetooth_Pi3.h"
 
 #define MONITOR_WIDTH 127
 #define MONITOR_HEIGHT 116
 
 int main(int argc, char* argv[]){
-	initscr();
-	initBluetooth_Pi3();
 	int size;
-	char dataBoi[256];
-
-	while(1){
-		size = 0;
-		size = getAudio(dataBoi, 255);
-		dataBoi[size] = 0;
-		printf("%s",dataBoi);
-		refresh();
-	}
-
-	closeBluetooth_Pi0W();
-	endwin();
-	return 0;
+	packet_t packet;
+	packet.datatype = VOICE_DATA;
+	char buff[32768*4];
+	pthread_t audioThread;
+	pthread_t bluetoothThread;
+	initCapture();
+	initPlayback();
+	initBluetooth_Pi3();
+/*	while(1){
+		size = captureAudio(buff);
+		playbackAudio(buff, size);
+	}*/
+	pipe(audioPipeBlue);
+	pthread_create(&audioThread, NULL, handleAudio, NULL);
+	pthread_create(&bluetoothThread, NULL, handleBluetooth, NULL);
+	pthread_exit(NULL);
 }

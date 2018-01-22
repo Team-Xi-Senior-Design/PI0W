@@ -16,10 +16,11 @@
  * External defines
  *******************************************/
 
-#define BUFFER_SIZE 2048
+#define BUFFER_SIZE 32768*8
 
 #define OBDII_DATA 0
 #define VOICE_DATA 1
+
 
 /*******************************************
  * TypeDef Struct                          *

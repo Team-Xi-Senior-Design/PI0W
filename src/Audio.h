@@ -17,10 +17,11 @@
  *****************************/
  
  void  initCapture();
- int  testCapture(char*);
+ int   captureAudio(char*, int);
  void  initPlayback();
- void  testPlayback(char*, int);
+ void  playbackAudio(char*, int);
  void  cleanUpAudio();
+ void* handleAudio(void*);
  void  audioFromNetwork();
  void* audioToNetwork(void*);
  void* networkToAudio(void*);
