@@ -24,18 +24,18 @@ int main(int argc, char* argv[]){
 	int size;
 	packet_t packet;
 	packet.datatype = VOICE_DATA;
-	char buff[32768*4];
+	char buff[1024];
 	pthread_t audioThread;
 	pthread_t bluetoothThread;
 	initCapture();
 	initPlayback();
 	initBluetooth_Pi3();
-/*	while(1){
-		size = captureAudio(buff);
-		playbackAudio(buff, size);
-	}*/
+//	while(1){
+//		size = captureAudio(buff, 1024);
+//		playbackAudio(buff, size);
+//	}
 	pipe(audioPipeBlue);
 	pthread_create(&audioThread, NULL, handleAudio, NULL);
-	pthread_create(&bluetoothThread, NULL, handleBluetooth, NULL);
+//	pthread_create(&bluetoothThread, NULL, handleBluetooth, NULL);
 	pthread_exit(NULL);
 }
