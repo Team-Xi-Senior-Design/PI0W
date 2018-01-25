@@ -24,7 +24,7 @@ int main(int argc, char* argv[]){
 	int size;
 	packet_t packet;
 	packet.datatype = VOICE_DATA;
-	char buff[32768*4];
+	char buff[1024];
 	pthread_t audioThread;
 	pthread_t bluetoothThreadS;
 	pthread_t bluetoothThreadR;
@@ -32,15 +32,16 @@ int main(int argc, char* argv[]){
 	initCapture();
 	initPlayback();
 	initBluetooth_Pi3();
-/*	while(1){
-		size = captureAudio(buff);
-		playbackAudio(buff, size);
-	}*/
+//	while(1){
+//		size = captureAudio(buff, 1024);
+//		playbackAudio(buff, size);
+//	}
 	pipe(audioPipeBlue);
 	pipe(audioPipeHead);
 	pthread_create(&audioThread, NULL, handleAudio, NULL);
 	pthread_create(&playAudioThread,NULL, handlePlayAudio, NULL);
 	pthread_create(&bluetoothThreadS, NULL, handleBluetoothSender, NULL);
 	pthread_create(&bluetoothThreadR, NULL, handleBluetoothReceiver, NULL);
+//	pthread_create(&bluetoothThread, NULL, handleBluetooth, NULL);
 	pthread_exit(NULL);
 }

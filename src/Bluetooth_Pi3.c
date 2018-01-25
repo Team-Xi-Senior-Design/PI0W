@@ -14,13 +14,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include "Audio.h"
 
 #include <bluetooth/bluetooth.h>
 #include <bluetooth/rfcomm.h>
 #include <bluetooth/hci.h>
 #include <bluetooth/hci_lib.h>
 
-static char* BluetoothAddr = "B8:27:EB:EF:25:F4";
+static char* BluetoothAddr = "B8:27:EB:DF:93:BE";
 #define CHANNEL_NUMBER 1
 static int sock;
 static char* receivedAudio;
@@ -106,8 +107,15 @@ void* handleBluetoothSender(void* params){
 	packet_t packet;
 	while(1)
 	{
-		read(audioPipeBlue[0], &packet, sizeof(packet_t));
-		sendData(&packet, sizeof(packet_t));
+		int bytesRead = 0;
+		do
+		{
+			bytesRead += read(audioPipeBlue[0], ((char*)&packet)+bytesRead, sizeof(packet_t)-bytesRead);
+		} while (bytesRead < sizeof(packet_t));
+		playbackAudio(packet.data,packet.size);
+//		printf("%d\n",bytesRead);
+//		sendData(&packet, sizeof(packet_t));
+//		write(1, packet.data, packet.size);
 	}
 }
 

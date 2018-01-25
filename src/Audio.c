@@ -1,4 +1,5 @@
-/* Author: MSOE Team Xi Senior Design 2017
+/*
+ * Author: MSOE Team Xi Senior Design 2017
  * Date: 12/2017
  * Description: Contains functions that will control audio
  */
@@ -11,6 +12,8 @@
 #include "NetworkPacket.h"
 #include <stdio.h>
 #include <alsa/asoundlib.h>
+#include <pthread.h>
+#include "Bluetooth_Pi3.h"
 
 #define ALSA_PCM_NEW_HW_PARAMS_API
 
@@ -21,8 +24,7 @@ snd_pcm_t *captureHandle;
 snd_pcm_hw_params_t *params;
 unsigned int val;
 //int dir;
-snd_pcm_uframes_t frames = 32768;
-
+snd_pcm_uframes_t frames = 1024;
 /*
  * Description:
  * @param:
@@ -110,8 +112,8 @@ snd_pcm_uframes_t frames = 32768;
 	snd_pcm_hw_params_free(params);
  }
 
-int captureAudio(char* buffer, int size){
-	rc = snd_pcm_readi(captureHandle, buffer, size);
+int captureAudio(char* buffer, int bufSize){
+	rc = snd_pcm_readi(captureHandle, buffer, bufSize);
 	if(rc == -EPIPE){
 		fprintf(stderr, "cap overrun occured\n");
 		snd_pcm_prepare(captureHandle);
@@ -119,10 +121,10 @@ int captureAudio(char* buffer, int size){
 		fprintf(stderr, "error from readi: %s\n", snd_strerror(rc));
 		rc = 0;
 	}
-	else if(rc != (int)size){
+	else if(rc != (int)bufSize){
 		fprintf(stderr, "short read, read %d frames\n", rc);
 	}
-	return rc;
+	return rc>0?rc:0;
 }
 
 void playbackAudio(char* buffer, int bufSize){
@@ -156,8 +158,9 @@ void* handleAudio(void* params){
 	packet.datatype = VOICE_DATA;
 	while(1)
 	{
-		packet.size = captureAudio(packet.data, BUFFER_SIZE);
-		write(audioPipeBlue[1], &packet, sizeof(packet_t));
+		packet.size = captureAudio(packet.data, 1024);
+		sendData(&packet,sizeof(packet_t));
+//		playbackAudio(packet.data,packet.size);
 	}
 }
 
