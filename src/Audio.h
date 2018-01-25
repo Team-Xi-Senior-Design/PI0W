@@ -22,6 +22,8 @@
  void  playbackAudio(char*, int);
  void  cleanUpAudio();
  void* handleAudio(void*);
+ void* handlePlayAudio(void*);
+
  void  audioFromNetwork();
  void* audioToNetwork(void*);
  void* networkToAudio(void*);

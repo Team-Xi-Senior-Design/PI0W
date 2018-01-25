@@ -161,6 +161,15 @@ void* handleAudio(void* params){
 	}
 }
 
+void* handlePlayAudio(void* params){
+	packet_t packet;
+	while(1)
+	{
+		read(audioPipeHead[0], &packet, sizeof(packet_t));
+		playbackAudio(packet.data, packet.size);
+	}
+}
+
  /*
  * Description:
  * @param:

@@ -31,9 +31,9 @@ static char* receivedAudio;
  * @param:
  * @return:
  */
-int getAudio(char* receivedAudio, int bytes){
-  memset(receivedAudio,bytes,0);
-  return read(sock, receivedAudio,bytes);
+int getAudio(packet_t* receivedAudio, int bufSize){
+  memset(receivedAudio,bufSize,0);
+  return read(sock, receivedAudio,bufSize);
 }
 
 /*
@@ -102,11 +102,20 @@ void closeBluetooth_Pi0W(){
 	free(receivedAudio);
 }
 
-void* handleBluetooth(void* params){
+void* handleBluetoothSender(void* params){
 	packet_t packet;
 	while(1)
 	{
 		read(audioPipeBlue[0], &packet, sizeof(packet_t));
 		sendData(&packet, sizeof(packet_t));
+	}
+}
+
+void* handleBluetoothReceiver(void* params){
+	packet_t packet;
+	while(1)
+	{
+		getAudio(&packet, sizeof(packet_t));
+		write(audioPipeHead[1], &packet, sizeof(packet_t));
 	}
 }
