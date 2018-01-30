@@ -105,14 +105,12 @@ void closeBluetooth_Pi0W(){
 
 void* handleBluetoothSender(void* params){
 	packet_t packet;
+	packet.datatype = VOICE_DATA;
 	while(1)
 	{
-		int bytesRead = 0;
-		do
-		{
-			bytesRead += read(audioPipeBlue[0], ((char*)&packet)+bytesRead, sizeof(packet_t)-bytesRead);
-		} while (bytesRead < sizeof(packet_t));
-		playbackAudio(packet.data,packet.size);
+		packet.size = captureAudio(packet.data,packet.size);
+		sendAudio(&packet,sizeof(packet_t));
+		playbackAudio(packet.data, packet.size);
 //		printf("%d\n",bytesRead);
 //		sendData(&packet, sizeof(packet_t));
 //		write(1, packet.data, packet.size);
@@ -124,6 +122,6 @@ void* handleBluetoothReceiver(void* params){
 	while(1)
 	{
 		getAudio(&packet, sizeof(packet_t));
-		write(audioPipeHead[1], &packet, sizeof(packet_t));
+		playbackAudio(packet.data,packet.size);
 	}
 }
