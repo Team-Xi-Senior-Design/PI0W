@@ -153,26 +153,6 @@ void playbackAudio(char* buffer, int bufSize){
 	snd_pcm_close(playbackHandle);
 }
 
-void* handleAudio(void* params){
-	packet_t packet;
-	packet.datatype = VOICE_DATA;
-	while(1)
-	{
-		packet.size = captureAudio(packet.data, 1024);
-		sendData(&packet,sizeof(packet_t));
-//		playbackAudio(packet.data,packet.size);
-	}
-}
-
-void* handlePlayAudio(void* params){
-	packet_t packet;
-	while(1)
-	{
-		read(audioPipeHead[0], &packet, sizeof(packet_t));
-		playbackAudio(packet.data, packet.size);
-	}
-}
-
  /*
  * Description:
  * @param:

@@ -21,10 +21,9 @@
 #include <bluetooth/hci.h>
 #include <bluetooth/hci_lib.h>
 
-static char* BluetoothAddr = "B8:27:EB:DF:93:BE";
+static char* BluetoothAddr = "B8:27:EB:EF:25:F4";
 #define CHANNEL_NUMBER 1
 static int sock;
-static char* receivedAudio;
 #define AUDIO_BUFFER_SIZE 255
 
 /*
@@ -33,8 +32,11 @@ static char* receivedAudio;
  * @return:
  */
 int getAudio(packet_t* receivedAudio, int bufSize){
-  memset(receivedAudio,bufSize,0);
-  return read(sock, receivedAudio,bufSize);
+	int bytesRead = 0;
+	while (bytesRead < bufSize) {
+		bytesRead += read(sock, &((char*)receivedAudio)[bytesRead],bufSize-bytesRead);
+	}
+	return bytesRead;
 }
 
 /*
@@ -43,7 +45,10 @@ int getAudio(packet_t* receivedAudio, int bufSize){
  * @return: NULL
  */
 void sendAudio(packet_t* audio, int size){
-  write(sock,audio,size);
+	int bytesWritten = 0;
+	while (bytesWritten < size) {
+		bytesWritten += write(sock,&((char*)audio)[bytesWritten],size-bytesWritten);
+	}
 }
 
 /*
@@ -52,7 +57,7 @@ void sendAudio(packet_t* audio, int size){
  * @return:NULL
  */
 void sendData(packet_t* data, int size){
-  write(sock,data,size);
+	write(sock,data,size);
 }
 
 /*
@@ -64,7 +69,6 @@ void initBluetooth_Pi3(){
   int d;
   struct sockaddr_rc laddr, raddr;
   struct hci_dev_info di;
-  receivedAudio = malloc(AUDIO_BUFFER_SIZE);
 
   if(hci_devinfo(0, &di) < 0) {
       perror("HCI device info failed");
@@ -100,7 +104,6 @@ void initBluetooth_Pi3(){
  */
 void closeBluetooth_Pi0W(){
 	close(sock);
-	free(receivedAudio);
 }
 
 void* handleBluetoothSender(void* params){
@@ -108,9 +111,9 @@ void* handleBluetoothSender(void* params){
 	packet.datatype = VOICE_DATA;
 	while(1)
 	{
-		packet.size = captureAudio(packet.data,packet.size);
+		packet.size = captureAudio(packet.data,BUFFER_SIZE);
 		sendAudio(&packet,sizeof(packet_t));
-		playbackAudio(packet.data, packet.size);
+//		playbackAudio(packet.data,packet.size);
 //		printf("%d\n",bytesRead);
 //		sendData(&packet, sizeof(packet_t));
 //		write(1, packet.data, packet.size);
