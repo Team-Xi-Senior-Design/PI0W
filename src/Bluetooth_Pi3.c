@@ -33,7 +33,7 @@ static int sock;
  */
 int getAudio(packet_t* receivedAudio, int bufSize){
 	int bytesRead = 0;
-	bytesRead = read(sock, receivedAudio,sizeof(packet_t));
+	bytesRead = recvfrom(sock, receivedAudio,sizeof(packet_t), MSG_WAITALL, NULL, 0);
 	return bytesRead;
 }
 
