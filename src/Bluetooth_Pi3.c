@@ -21,7 +21,8 @@
 #include <bluetooth/hci.h>
 #include <bluetooth/hci_lib.h>
 
-static char* BluetoothAddr = "B8:27:EB:EF:25:F4";
+//static char* BluetoothAddr = "B8:27:EB:EF:25:F4";
+static char* BluetoothAddr = "B8:27:EB:DF:93:BE";
 #define CHANNEL_NUMBER 1
 static int sock;
 #define AUDIO_BUFFER_SIZE 255
@@ -112,7 +113,7 @@ void* handleBluetoothSender(void* params){
 	while(1)
 	{
 		packet.size = captureAudio(packet.data,BUFFER_SIZE);
-		if (packet.size > BUFFER_SIZE) {
+		if (packet.size != BUFFER_SIZE) {
 			fprintf(stderr,"sadboi in bluetoothsender\n");
 		}
 		sendAudio(&packet,sizeof(packet_t));
@@ -128,10 +129,10 @@ void* handleBluetoothReceiver(void* params){
 	while(1)
 	{
 		getAudio(&packet, sizeof(packet_t));
-		if (packet.size>BUFFER_SIZE) {
+		if (packet.size!=BUFFER_SIZE) {
 			fprintf(stderr,"sadboi in bluetoothreciever\n");
 		}
-		if(packet.size>BUFFER_SIZE) {
+		if(packet.size!=BUFFER_SIZE) {
 			fprintf(stderr,"this should never happen\n");
 		}
 		playbackAudio(packet.data,packet.size);
