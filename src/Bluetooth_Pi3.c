@@ -25,7 +25,6 @@
 static char* BluetoothAddr = "B8:27:EB:DF:93:BE";
 #define CHANNEL_NUMBER 1
 static int sock;
-#define AUDIO_BUFFER_SIZE 255
 
 /*
  * Description:
@@ -34,9 +33,7 @@ static int sock;
  */
 int getAudio(packet_t* receivedAudio, int bufSize){
 	int bytesRead = 0;
-	while (bytesRead < bufSize) {
-		bytesRead += read(sock, &((char*)receivedAudio)[bytesRead],bufSize-bytesRead);
-	}
+	bytesRead = read(sock, receivedAudio,sizeof(packet_t));
 	return bytesRead;
 }
 
@@ -47,9 +44,7 @@ int getAudio(packet_t* receivedAudio, int bufSize){
  */
 void sendAudio(packet_t* audio, int size){
 	int bytesWritten = 0;
-	while (bytesWritten < size) {
-		bytesWritten += write(sock,&((char*)audio)[bytesWritten],size-bytesWritten);
-	}
+	bytesWritten = write(sock,audio,sizeof(packet_t));
 }
 
 /*
@@ -58,7 +53,7 @@ void sendAudio(packet_t* audio, int size){
  * @return:NULL
  */
 void sendData(packet_t* data, int size){
-	write(sock,data,size);
+	write(sock,data,sizeof(packet_t));
 }
 
 /*
