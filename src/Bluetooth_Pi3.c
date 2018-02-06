@@ -127,13 +127,14 @@ void* handleBluetoothReceiver(void* params){
 	while(1)
 	{
 		getAudio(&packet, sizeof(packet_t));
-		/*if (packet.size!=BUFFER_SIZE) {
+		if (packet.size!=BUFFER_SIZE) {
 			fprintf(stderr,"sadboi in bluetoothreciever\n");
 		}
 		if(packet.size!=BUFFER_SIZE) {
 			fprintf(stderr,"this should never happen\n");
 		}
-		playbackAudio(packet.data,packet.size);*/
-		printf("%s\n",packet.data);
+//		printf("%d\n",packet.size);
+		playbackAudio(packet.data,packet.size);
+//		printf("%s\n",packet.data);
 	}
 }

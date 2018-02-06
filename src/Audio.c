@@ -48,7 +48,7 @@ snd_pcm_uframes_t frames = 1024;
 	//Signed 16-bit little-endian format
 	snd_pcm_hw_params_set_format(captureHandle, params, SND_PCM_FORMAT_S8);
 	//44100 bps samp rate
-	val = 32000;
+	val = 8000;
 	snd_pcm_hw_params_set_rate_near(captureHandle, params, &val, NULL);
 	//one channel
 	snd_pcm_hw_params_set_channels(captureHandle, params, 1);
@@ -94,7 +94,7 @@ snd_pcm_uframes_t frames = 1024;
 	//one channel
 	snd_pcm_hw_params_set_channels(playbackHandle, params, 1);
 	//44100 bps samp rate
-	val = 32000;
+	val = 8000;
 	snd_pcm_hw_params_set_rate_near(playbackHandle, params, &val, NULL);
 	//Period size to 32 frames
 	snd_pcm_hw_params_set_period_size_near(playbackHandle, params, &frames, NULL);
