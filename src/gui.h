@@ -1,11 +1,15 @@
-#include <cairo/cairo.h>
+#include <ncurses.h>
 #include <stdint.h>
 #include "main.h"
 
 
-static uint8_t  micOpen;
 
-static uint8_t  mute;
+static char** roomMembers;
+
+static int numbMembers;
+
+
+static WINDOW *win;
 
 //cairo_surface_t *mainSurface;
 
@@ -25,8 +29,32 @@ void dispPackName(const char* packname);
 
 void dispChatRoomName(const char* roomName);
 
-void dispRoomMembers(char** roomMembers, const int numbMembers);
+void dispRoomMembers();
 
+void setRoomMembers(char** newRoomMembers, const int newNumbMembers);
+
+//void setLowFuel( char** isTalking, const uint8_t numbTalking);
+
+void setLowFuel(char* isTalking);
+
+void removeLowFuel(char* isTalking);
+
+void addMember(const char* name);
+
+void removeMember(char* member);
+
+void cleanUp();
+
+void leftArrowOn();
+void leftArrowOff();
+void rightArrowOn();
+void rightArrowOff();
+void strightArrowOn();
+void strightArrowOff();
+int calcCentered(const char* str);
 void setMicIcon(const uint8_t micState);
 
 void setSpkrMuteIcon(const uint8_t spkrState);
+
+void endWindow();
+
