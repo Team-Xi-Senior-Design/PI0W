@@ -15,6 +15,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include "Audio.h"
+#include "gui.h"
 
 #include <bluetooth/bluetooth.h>
 #include <bluetooth/rfcomm.h>
@@ -133,7 +134,8 @@ void* handleBluetoothReceiver(void* params){
 		switch(packet.datatype){
 			case VOICE_DATA: break;
 			case OBDII_DATA:
-				printf("fuel: %d, speed %d, rpm %d\n",obddata->fuelLevel, obddata->speed, obddata->rpm);
+			//	printf("fuel: %d, speed %d, rpm %d\n",obddata->fuelLevel, obddata->speed, obddata->rpm);
+					updateOBD(obddata);
 					 break;
 			default: 	 break;
 

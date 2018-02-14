@@ -21,17 +21,17 @@
 
 #define  RPM_Y         18
 
-#define  FUEL_Y        17 
+#define  FUEL_Y        17
 #define  FUEL_X        40
 
 #define  PACK_Y        0
-    
+
 #define  ROOM_Y        1
 
 #define  USERS_Y_START 6
 #define  USERS_X       40
 
-#define LEFT_X		   17
+#define LEFT_X         17
 #define LEFT_Y         10
 
 #define RIGHT_X        31
@@ -53,6 +53,17 @@ void createMainDisp(){
 //	wborder(win, ACS_VLINE,ACS_VLINE, ACS_HLINE,ACS_HLINE,ACS_ULCORNER, ACS_URCORNER, ACS_LLCORNER, ACS_LRCORNER);
 	//keypad()
 	refresh();
+	dispPackName("Team Xi");
+	dispChatRoomName("MSOE");
+	addMember("John");
+	addMember("Caleb");
+	addMember("Matt");
+	addMember("Reid");
+	addMember("Barnekow");
+	dispRoomMembers();
+	rightArrowOn();
+	leftArrowOn();
+	strightArrowOn();
 }
 void dispSpeedMph(const int32_t speedKph){
 	int speedMph;
@@ -64,7 +75,6 @@ void dispSpeedMph(const int32_t speedKph){
 	int xCord = calcCentered(speedBuff);
 	mvwprintw(win,SPEED_Y,xCord,speedBuff);
 	wrefresh(win);
-	
 }
 
 void dispSpeedKph(const int32_t speedKph){
@@ -170,7 +180,7 @@ void removeMember (char* member) {
 				}
 				free(roomMembers);
 				roomMembers = tmpList;
-				break; 
+				break;
 			}
 		}
 
@@ -218,7 +228,7 @@ void setRoomMembers(char** newRoomMembers, const int newNumbMembers){
 // 	} else{
 // 		for (int i = 0; i < numbMembers; i++){
 // 			mvwaddstr(win,USERS_Y_START+i,USERS_X-1," ");
-// 			wrefresh(win); 
+// 			wrefresh(win);
 // 		}
 // 	}
 // }
@@ -250,7 +260,7 @@ void removeLowFuel(char* isTalking){
 	}
 }
 void leftArrowOn(){
- 
+
 	mvwaddch(win,Y_MID_POINT  ,LEFT_X  ,0x2F);
 	mvwaddch(win,Y_MID_POINT  ,LEFT_X-2,0x2F);
 	mvwaddch(win,Y_MID_POINT-1,LEFT_X+1,0x2F);
@@ -266,7 +276,7 @@ void leftArrowOn(){
 	mvwaddch(win,Y_MID_POINT+1,LEFT_X-2,0x5c);
 	mvwaddch(win,Y_MID_POINT+2,LEFT_X+1,0x5c);
 	mvwaddch(win,Y_MID_POINT+2,LEFT_X-1,0x5c);
-	wrefresh(win); 
+	wrefresh(win);
 
 }
 void leftArrowOff(){
@@ -353,14 +363,14 @@ void strightArrowOff(){
 	wrefresh(win);
 }
 
-	
+
 int calcCentered(const char* str){
 	int x_start;
 	if(str != NULL){
 		int halfLng, length;
 		length = strlen(str);
 		halfLng = length/2;
-		x_start =  X_MID_POINT-halfLng; 
+		x_start =  X_MID_POINT-halfLng;
 	}
 	return x_start;
 }
@@ -379,4 +389,10 @@ void endWindow(){
 		if(roomMembers != NULL) cleanUp();
 		endwin();
 	}
+}
+
+void updateOBD(obd2data_t* obddata){
+	dispSpeedMph(obddata->speed);
+	dispFuelLevel(obddata->fuelLevel);
+	dispRpm(obddata->rpm);
 }

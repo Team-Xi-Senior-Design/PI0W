@@ -16,6 +16,7 @@
 #include <pthread.h>
 #include <unistd.h>
 #include "Bluetooth_Pi3.h"
+#include "gui.h"
 
 #define MONITOR_WIDTH 127
 #define MONITOR_HEIGHT 116
@@ -31,6 +32,7 @@ int main(int argc, char* argv[]){
 	pthread_t playAudioThread;
 //	initCapture();
 //	initPlayback();
+	createMainDisp();
 	initBluetooth_Pi3();
 //	while(1){
 //		size = captureAudio(buff, 1024);
@@ -44,4 +46,5 @@ int main(int argc, char* argv[]){
 //	pthread_create(&bluetoothThreadR, NULL, handleBluetoothReceiver, NULL);
 //	pthread_create(&bluetoothThread, NULL, handleBluetooth, NULL);
 	pthread_exit(NULL);
+	endWindow();
 }

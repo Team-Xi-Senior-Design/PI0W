@@ -1,7 +1,9 @@
+#ifndef GUI_H
+#define GUI_H
 #include <ncurses.h>
 #include <stdint.h>
 #include "main.h"
-
+#include "NetworkPacket.h"
 
 
 static char** roomMembers;
@@ -57,4 +59,5 @@ void setMicIcon(const uint8_t micState);
 void setSpkrMuteIcon(const uint8_t spkrState);
 
 void endWindow();
-
+void updateOBD(obd2data_t*);
+#endif
