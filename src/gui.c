@@ -307,12 +307,38 @@ void strightArrowOn(){
 
 
 	mvwaddch(win,STRIGHT_Y-1,X_MID_POINT-1,0x2F);
+	mvwaddch(win,STRIGHT_Y,X_MID_POINT-1,0x2F);
 	mvwaddch(win,STRIGHT_Y,X_MID_POINT-2,0x2F);
-	mvwaddch(win,STRIGHT_Y-1,X_MID_POINT,0x5c);
+	mvwaddch(win,STRIGHT_Y-1,X_MID_POINT+1,0x5c);
 	mvwaddch(win,STRIGHT_Y,X_MID_POINT+1,0x5c);
 
-	mvwaddch(win,STRIGHT_Y,X_MID_POINT,115|A_ALTCHARSET);
-	mvwaddch(win,STRIGHT_Y,X_MID_POINT-1,115|A_ALTCHARSET);
+	mvwaddch(win,STRIGHT_Y,X_MID_POINT+2,0x5c);
+
+	mvwaddch(win,STRIGHT_Y-2,X_MID_POINT,45|A_ALTCHARSET);
+	mvwaddch(win,STRIGHT_Y-1,X_MID_POINT,120|A_ALTCHARSET);
+
+    mvwaddch(win,STRIGHT_Y,X_MID_POINT,120|A_ALTCHARSET);
+
+	mvwaddch(win,STRIGHT_Y+1,X_MID_POINT+1,120|A_ALTCHARSET);
+	mvwaddch(win,STRIGHT_Y+1,X_MID_POINT,120|A_ALTCHARSET);
+	mvwaddch(win,STRIGHT_Y+1,X_MID_POINT-1,120|A_ALTCHARSET);
+
+
+
+	mvwaddch(win,STRIGHT_Y-1,X_MID_POINT-1,0x2F);
+	mvwaddch(win,STRIGHT_Y,X_MID_POINT-1,0x2F);
+	mvwaddch(win,STRIGHT_Y,X_MID_POINT-2,0x2F);
+	mvwaddch(win,STRIGHT_Y-1,X_MID_POINT+1,0x5c);
+	mvwaddch(win,STRIGHT_Y,X_MID_POINT+1,0x5c);
+
+	mvwaddch(win,STRIGHT_Y,X_MID_POINT+2,0x5c);
+
+	mvwaddch(win,STRIGHT_Y-2,X_MID_POINT,45|A_ALTCHARSET);
+	mvwaddch(win,STRIGHT_Y-1,X_MID_POINT,120|A_ALTCHARSET);
+
+    mvwaddch(win,STRIGHT_Y,X_MID_POINT,120|A_ALTCHARSET);
+
+	mvwaddch(win,STRIGHT_Y+1,X_MID_POINT+1,120|A_ALTCHARSET);
 	mvwaddch(win,STRIGHT_Y+1,X_MID_POINT,120|A_ALTCHARSET);
 	mvwaddch(win,STRIGHT_Y+1,X_MID_POINT-1,120|A_ALTCHARSET);
 
