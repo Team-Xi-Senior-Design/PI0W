@@ -124,9 +124,20 @@ void* handleBluetoothSender(void* params){
 
 void* handleBluetoothReceiver(void* params){
 	packet_t packet;
+	obd2data_t * obddata;
+	obddata = ((obd2data_t *) &packet.data);
+
 	while(1)
 	{
 		getAudio(&packet, sizeof(packet_t));
+		switch(packet.datatype){
+			case VOICE_DATA: break;
+			case OBDII_DATA:
+				printf("fuel: %d, speed %d, rpm %d\n",obddata->fuelLevel, obddata->speed, obddata->rpm);
+					 break;
+			default: 	 break;
+
+		}
 		/*if (packet.size!=BUFFER_SIZE) {
 			fprintf(stderr,"sadboi in bluetoothreciever\n");
 		}
@@ -134,6 +145,6 @@ void* handleBluetoothReceiver(void* params){
 			fprintf(stderr,"this should never happen\n");
 		}
 		playbackAudio(packet.data,packet.size);*/
-		printf("%s\n",packet.data);
+	//	printf("%s\n",packet.data);
 	}
 }
