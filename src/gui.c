@@ -75,6 +75,7 @@ void dispSpeedMph(const int32_t speedKph){
 	int xCord = calcCentered(speedBuff);
 	mvwprintw(win,SPEED_Y,xCord,speedBuff);
 	wrefresh(win);
+	
 }
 
 void dispSpeedKph(const int32_t speedKph){
@@ -159,7 +160,6 @@ void addMember(const char* name){
 }
 
 
-
 void removeMember (char* member) {
 	int tmpInt;
 	int tmpNumb = numbMembers;
@@ -180,7 +180,7 @@ void removeMember (char* member) {
 				}
 				free(roomMembers);
 				roomMembers = tmpList;
-				break;
+				break; 
 			}
 		}
 
@@ -228,7 +228,7 @@ void setRoomMembers(char** newRoomMembers, const int newNumbMembers){
 // 	} else{
 // 		for (int i = 0; i < numbMembers; i++){
 // 			mvwaddstr(win,USERS_Y_START+i,USERS_X-1," ");
-// 			wrefresh(win);
+// 			wrefresh(win); 
 // 		}
 // 	}
 // }
@@ -260,23 +260,23 @@ void removeLowFuel(char* isTalking){
 	}
 }
 void leftArrowOn(){
-
+ 
 	mvwaddch(win,Y_MID_POINT  ,LEFT_X  ,0x2F);
 	mvwaddch(win,Y_MID_POINT  ,LEFT_X-2,0x2F);
 	mvwaddch(win,Y_MID_POINT-1,LEFT_X+1,0x2F);
 	mvwaddch(win,Y_MID_POINT-1,LEFT_X-1,0x2F);
 
-	mvwaddch(win,Y_MID_POINT,LEFT_X+1,115|A_ALTCHARSET);
-	mvwaddch(win,Y_MID_POINT+1,LEFT_X+1,111|A_ALTCHARSET);
+	mvwaddch(win,Y_MID_POINT,LEFT_X+1,'-');
+	mvwaddch(win,Y_MID_POINT+1,LEFT_X+1,'-');
 
-	mvwaddch(win,Y_MID_POINT,LEFT_X+2,115|A_ALTCHARSET);
-	mvwaddch(win,Y_MID_POINT+1,LEFT_X+2,111|A_ALTCHARSET);
+	mvwaddch(win,Y_MID_POINT,LEFT_X+2,'-');
+	mvwaddch(win,Y_MID_POINT+1,LEFT_X+2,'-');
 
 	mvwaddch(win,Y_MID_POINT+1,LEFT_X  ,0x5c);
 	mvwaddch(win,Y_MID_POINT+1,LEFT_X-2,0x5c);
 	mvwaddch(win,Y_MID_POINT+2,LEFT_X+1,0x5c);
 	mvwaddch(win,Y_MID_POINT+2,LEFT_X-1,0x5c);
-	wrefresh(win);
+	wrefresh(win); 
 
 }
 void leftArrowOff(){
@@ -293,11 +293,11 @@ void rightArrowOn(){
 	mvwaddch(win,Y_MID_POINT-1,RIGHT_X+1,0x5c);
 
 
-	mvwaddch(win,Y_MID_POINT,RIGHT_X-1,115|A_ALTCHARSET);
-	mvwaddch(win,Y_MID_POINT+1,RIGHT_X-1,111|A_ALTCHARSET);
+	mvwaddch(win,Y_MID_POINT,RIGHT_X-1,'-');
+	mvwaddch(win,Y_MID_POINT+1,RIGHT_X-1,'-');
 
-	mvwaddch(win,Y_MID_POINT,RIGHT_X-2,115|A_ALTCHARSET);
-	mvwaddch(win,Y_MID_POINT+1,RIGHT_X-2,111|A_ALTCHARSET);
+	mvwaddch(win,Y_MID_POINT,RIGHT_X-2,'-');
+	mvwaddch(win,Y_MID_POINT+1,RIGHT_X-2,'-');
 
 
 	mvwaddch(win,Y_MID_POINT+1,RIGHT_X  ,0x2F);
@@ -316,24 +316,6 @@ void rightArrowOff(){
 void strightArrowOn(){
 
 
-	mvwaddch(win,STRIGHT_Y-1,X_MID_POINT-1,0x2F);
-	mvwaddch(win,STRIGHT_Y,X_MID_POINT-1,0x2F);
-	mvwaddch(win,STRIGHT_Y,X_MID_POINT-2,0x2F);
-	mvwaddch(win,STRIGHT_Y-1,X_MID_POINT+1,0x5c);
-	mvwaddch(win,STRIGHT_Y,X_MID_POINT+1,0x5c);
-
-	mvwaddch(win,STRIGHT_Y,X_MID_POINT+2,0x5c);
-
-	mvwaddch(win,STRIGHT_Y-2,X_MID_POINT,45|A_ALTCHARSET);
-	mvwaddch(win,STRIGHT_Y-1,X_MID_POINT,120|A_ALTCHARSET);
-
-    mvwaddch(win,STRIGHT_Y,X_MID_POINT,120|A_ALTCHARSET);
-
-	mvwaddch(win,STRIGHT_Y+1,X_MID_POINT+1,120|A_ALTCHARSET);
-	mvwaddch(win,STRIGHT_Y+1,X_MID_POINT,120|A_ALTCHARSET);
-	mvwaddch(win,STRIGHT_Y+1,X_MID_POINT-1,120|A_ALTCHARSET);
-
-
 
 	mvwaddch(win,STRIGHT_Y-1,X_MID_POINT-1,0x2F);
 	mvwaddch(win,STRIGHT_Y,X_MID_POINT-1,0x2F);
@@ -343,7 +325,7 @@ void strightArrowOn(){
 
 	mvwaddch(win,STRIGHT_Y,X_MID_POINT+2,0x5c);
 
-	mvwaddch(win,STRIGHT_Y-2,X_MID_POINT,45|A_ALTCHARSET);
+	mvwaddch(win,STRIGHT_Y-2,X_MID_POINT,'^');
 	mvwaddch(win,STRIGHT_Y-1,X_MID_POINT,120|A_ALTCHARSET);
 
     mvwaddch(win,STRIGHT_Y,X_MID_POINT,120|A_ALTCHARSET);
@@ -363,14 +345,14 @@ void strightArrowOff(){
 	wrefresh(win);
 }
 
-
+	
 int calcCentered(const char* str){
 	int x_start;
 	if(str != NULL){
 		int halfLng, length;
 		length = strlen(str);
 		halfLng = length/2;
-		x_start =  X_MID_POINT-halfLng;
+		x_start =  X_MID_POINT-halfLng; 
 	}
 	return x_start;
 }
