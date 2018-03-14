@@ -46,9 +46,9 @@ snd_pcm_uframes_t frames = 1024;
 	//Interleaved mode
 	snd_pcm_hw_params_set_access(captureHandle, params, SND_PCM_ACCESS_RW_INTERLEAVED);
 	//Signed 16-bit little-endian format
-	snd_pcm_hw_params_set_format(captureHandle, params, SND_PCM_FORMAT_S8);
+	snd_pcm_hw_params_set_format(captureHandle, params, SND_PCM_FORMAT_S16_LE);
 	//44100 bps samp rate
-	val = 8000;
+	val = 16000;
 	snd_pcm_hw_params_set_rate_near(captureHandle, params, &val, NULL);
 	//one channel
 	snd_pcm_hw_params_set_channels(captureHandle, params, 1);
@@ -116,7 +116,6 @@ int captureAudio(char* buffer, int bufSize){
 	rc = snd_pcm_readi(captureHandle, buffer, bufSize);
 	if(rc == -EPIPE){
 		//fprintf(stderr, "cap overrun occured\n");
-		
 		snd_pcm_prepare(captureHandle);
 	}else if(rc < 0){
 		fprintf(stderr, "error from readi: %s\n", snd_strerror(rc));

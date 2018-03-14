@@ -38,8 +38,8 @@ int main(int argc, char* argv[]){
 //	}
 //	pipe(audioPipeBlue);
 //	pipe(audioPipeHead);
-//	pthread_create(&audioThread, NULL, handleBluetoothSender, NULL);
-	pthread_create(&playAudioThread,NULL, handleBluetoothReceiver, NULL);
+	pthread_create(&audioThread, NULL, handleBluetoothSender, NULL);
+//	pthread_create(&playAudioThread,NULL, handleBluetoothReceiver, NULL);
 //	pthread_create(&bluetoothThreadS, NULL, handleBluetoothSender, NULL);
 //	pthread_create(&bluetoothThreadR, NULL, handleBluetoothReceiver, NULL);
 //	pthread_create(&bluetoothThread, NULL, handleBluetooth, NULL);

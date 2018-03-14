@@ -21,8 +21,8 @@
 #include <bluetooth/hci.h>
 #include <bluetooth/hci_lib.h>
 
-static char* BluetoothAddr = "B8:27:EB:EF:25:F4";
-//static char* BluetoothAddr = "B8:27:EB:DF:93:BE";
+//static char* BluetoothAddr = "B8:27:EB:EF:25:F4";
+static char* BluetoothAddr = "B8:27:EB:DF:93:BE";
 #define CHANNEL_NUMBER 1
 static int sock;
 
@@ -107,9 +107,9 @@ void* handleBluetoothSender(void* params){
 	packet.datatype = VOICE_DATA;
 	while(1)
 	{
-//		packet.size = captureAudio(packet.data,BUFFER_SIZE);
-		memset(packet.data,'a',10);
-		packet.data[10]=0;
+		packet.size = captureAudio(packet.data,BUFFER_SIZE);
+//		memset(packet.data,'a',10);
+//		packet.data[10]=0;
 /*
 		if (packet.size != BUFFER_SIZE) {
 			fprintf(stderr,"sadboi in bluetoothsender\n");
