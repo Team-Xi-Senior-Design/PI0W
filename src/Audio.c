@@ -32,7 +32,7 @@ snd_pcm_uframes_t frames = 1024;
  */
  void  initCapture(){
 	//Open for capture
-	rc = snd_pcm_open(&captureHandle, "default", SND_PCM_STREAM_CAPTURE,0);
+	rc = snd_pcm_open(&captureHandle, "hw:1", SND_PCM_STREAM_CAPTURE,0);
 	if (rc < 0){
 		fprintf(stderr, "unable to open pcm device: %s\n", snd_strerror(rc));
 		exit(1);
@@ -46,9 +46,9 @@ snd_pcm_uframes_t frames = 1024;
 	//Interleaved mode
 	snd_pcm_hw_params_set_access(captureHandle, params, SND_PCM_ACCESS_RW_INTERLEAVED);
 	//Signed 16-bit little-endian format
-	snd_pcm_hw_params_set_format(captureHandle, params, SND_PCM_FORMAT_S16_LE);
+	snd_pcm_hw_params_set_format(captureHandle, params, SND_PCM_FORMAT_S8);
 	//44100 bps samp rate
-	val = 16000;
+	val = 8000;
 	snd_pcm_hw_params_set_rate_near(captureHandle, params, &val, NULL);
 	//one channel
 	snd_pcm_hw_params_set_channels(captureHandle, params, 1);
@@ -76,7 +76,7 @@ snd_pcm_uframes_t frames = 1024;
  */
  void  initPlayback(){
 	//Open for playback
-	rc = snd_pcm_open(&playbackHandle, "default", SND_PCM_STREAM_PLAYBACK,0);
+	rc = snd_pcm_open(&playbackHandle, "hw:1", SND_PCM_STREAM_PLAYBACK,0);
 	if (rc < 0){
 		fprintf(stderr, "unable to open pcm device: %s\n", snd_strerror(rc));
 		exit(1);
