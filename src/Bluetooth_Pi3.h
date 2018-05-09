@@ -15,9 +15,10 @@
 /*******************************************
  * Function Prototypes                     *
  *******************************************/
-int getAudio(packet_t*, int);
-void sendAudio(packet_t*, int);
-void sendData(packet_t*, int);
+int getAudio(char*, int);
+int getData(packet_t*);
+void sendAudio(char*, int);
+void sendData(packet_t*);
 void initBluetooth_Pi3(void);
 void closeBluetooth_Pi0W(void);
 void* handleBluetoothSender(void*);

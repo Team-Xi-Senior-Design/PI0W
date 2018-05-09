@@ -24,6 +24,8 @@
 #include <bluetooth/hci.h>
 #include <bluetooth/hci_lib.h>
 #include <bluetooth/sco.h>
+#include <bluetooth/l2cap.h>
+#include <errno.h>
 
 //static char* BluetoothAddr = "B8:27:EB:EF:25:F4";
 static char* BluetoothAddr = "B8:27:EB:DF:93:BE";
@@ -38,7 +40,20 @@ static int scoSock, scoClient;
  * @param:
  * @return:
  */
-int getAudio(packet_t* receivedAudio, int bufSize){
+int getAudio(char* receivedAudio, int bufSize){
+	fd_set socketReadSet;
+	FD_ZERO(&socketReadSet);
+	FD_SET(scoSock, &socketReadSet);
+	if((select(scoSock+1, &socketReadSet, 0, 0, &timer)) < 0){
+		perror("Failed to change socket direction");
+		exit(EXIT_FAILURE);
+	}
+	int bytesRead = 0;
+	bytesRead = recv(scoSock, receivedAudio, bufSize, MSG_WAITALL);
+	return bytesRead;
+}
+
+int getData(packet_t* receivedAudio){
 	fd_set socketReadSet;
 	FD_ZERO(&socketReadSet);
 	FD_SET(sock, &socketReadSet);
@@ -47,16 +62,17 @@ int getAudio(packet_t* receivedAudio, int bufSize){
 		exit(EXIT_FAILURE);
 	}
 	int bytesRead = 0;
-	bytesRead = recv(sock, receivedAudio,sizeof(packet_t), MSG_WAITALL);
+	bytesRead = recv(sock, receivedAudio, sizeof(packet_t), MSG_WAITALL);
 	return bytesRead;
 }
+
 
 /*
  * Description: Sends audio across the Bluetooth connection to the Pi3
  * @param: audio
  * @return: NULL
  */
-void sendAudio(packet_t* audio, int size){
+void sendData(packet_t* audio){
 	fd_set socketWriteSet;
 	FD_ZERO(&socketWriteSet);
 	FD_SET(sock, &socketWriteSet);
@@ -73,8 +89,8 @@ void sendAudio(packet_t* audio, int size){
  * @param: data
  * @return:NULL
  */
-void sendData(packet_t* data, int size){
-	write(sock,data,sizeof(packet_t));
+void sendAudio(char* data, int size){
+	write(scoSock ,data, size);
 }
 
 /*
@@ -117,23 +133,21 @@ void initBluetooth_Pi3(){
         perror("connect");
 	exit(EXIT_FAILURE);
    }
+
    struct sockaddr_sco local, remote;
-   if((scoSock = socket(PF_BLUETOOTH, SOCK_SEQPACKET, BTPROTO_SCO)) < 0){
+   memset(&local, 0, sizeof(struct sockaddr_sco));
+   if((scoSock = socket(AF_BLUETOOTH, SOCK_SEQPACKET, BTPROTO_SCO)) < 0){
   	perror("SCO");
 	exit(EXIT_FAILURE);
    }
+   printf("sco socket created\n");
    local.sco_family = AF_BLUETOOTH;
-   local.sco_bdaddr = *BDADDR_ANY;
-   if((bind(scoSock, (struct sockaddr *) &local, sizeof(struct sockaddr_sco))) < 0){
-	perror("bind");
+   str2ba(BluetoothAddr,&local.sco_bdaddr);
+   if((connect(scoSock, (struct sockaddr *) &local, sizeof(struct sockaddr_sco))) < 0){
+	perror("connect");
 	exit(EXIT_FAILURE);
    }
-   if((listen(scoSock, 1)) < 0){
-	perror("listen");
-	exit(EXIT_FAILURE);
-   }
-   unsigned int length = sizeof(struct sockaddr_sco);
-   scoClient = accept(scoSock, (struct sockaddr *) &remote, &length);
+   printf("SCO connected\n");
 }
 
 /*
@@ -158,7 +172,8 @@ void* handleBluetoothSender(void* params){
 		if (packet.size != BUFFER_SIZE) {
 			fprintf(stderr,"sadboi in bluetoothsender\n");
 		}*/
-		sendAudio(&packet,sizeof(packet_t));
+		sendAudio((char*) &packet,packet.size);
+		printf("Sending audio\n");
 //		playbackAudio(packet.data,packet.size);
 //		printf("%d\n",bytesRead);
 //		sendData(&packet, sizeof(packet_t));
@@ -170,15 +185,10 @@ void* handleBluetoothReceiver(void* params){
 	packet_t packet;
 	while(1)
 	{
-		getAudio(&packet, sizeof(packet_t));
-		if (packet.size!=BUFFER_SIZE) {
-			fprintf(stderr,"sadboi in bluetoothreciever\n");
-		}
-		if(packet.size!=BUFFER_SIZE) {
-			fprintf(stderr,"this should never happen\n");
-		}
+		packet.size = getAudio((char*) &packet, BUFFER_SIZE);
 //		printf("%d\n",packet.size);
 		playbackAudio(packet.data,packet.size);
+		printf("Playback audio\n");
 //		printf("%s\n",packet.data);
 	}
 }
