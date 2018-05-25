@@ -11,40 +11,43 @@
 
 #define  USER_NAME_MAX 10
 
-#define  X_MID_POINT     24
-#define  Y_MID_POINT     10
+#define  X_MID_POINT    11
+#define  Y_MID_POINT    22
 
-#define  WIN_HIGHT     20
-#define  WIN_WIDTH     50
+#define  WIN_HIGHT     34
+#define  WIN_WIDTH     33
+// display  is  60x52 (C x R)
+#define  WIN_START_X   9
+#define  WIN_START_Y   4
 
-#define  SPEED_Y       17
+#define  SPEED_Y       27
 
-#define  RPM_Y         18
+#define  RPM_Y         28
 
-#define  FUEL_Y        17
-#define  FUEL_X        40
+#define  FUEL_Y        27
+#define  FUEL_X        17
 
-#define  PACK_Y        0
+#define  PACK_Y        5
 
-#define  ROOM_Y        1
+#define  ROOM_Y        6
 
-#define  USERS_Y_START 6
-#define  USERS_X       40
+#define  USERS_Y_START 9
+#define  USERS_X       4
 
-#define LEFT_X         17
-#define LEFT_Y         10
+#define LEFT_X         9
+#define LEFT_Y         16
 
-#define RIGHT_X        31
-#define RIGHT_Y        10
+#define RIGHT_X        9
+#define RIGHT_Y        16
 
-#define STRIGHT_X      22
-#define STRIGHT_Y      8
+#define STRIGHT_X      9
+#define STRIGHT_Y      18
 
 #define SILVER_RGB  192  // all values are the same
 
 void createMainDisp(){
 	initscr();
-	win = newwin(WIN_HIGHT,WIN_WIDTH,0,0);
+	win = newwin(WIN_HIGHT,WIN_WIDTH,WIN_START_Y,WIN_START_X);
 	//bkrgrnd(COLOR_WHITE);
 	start_color();
 	init_pair(1, COLOR_WHITE,  COLOR_BLACK);
@@ -59,11 +62,14 @@ void createMainDisp(){
 	addMember("Caleb");
 	addMember("Matt");
 	addMember("Reid");
-	addMember("Barnekow");
+	addMember("Proffesor Barnekow");
 	dispRoomMembers();
 	rightArrowOn();
-	leftArrowOn();
-	strightArrowOn();
+//	leftArrowOn();
+//	strightArrowOn();
+	dispSpeedMph(0);
+	dispFuelLevel(100);
+	dispRpm(0);
 }
 void dispSpeedMph(const int32_t speedKph){
 	int speedMph;
@@ -71,36 +77,37 @@ void dispSpeedMph(const int32_t speedKph){
 	speedMph = (speedKph * 0.621);
 	char speedBuff[10];
 	sprintf(speedBuff,"%d Mph",speedMph);
-	mvwprintw(win,SPEED_Y,20,"           ");
-	int xCord = calcCentered(speedBuff);
-	mvwprintw(win,SPEED_Y,xCord,speedBuff);
+	mvwprintw(win,SPEED_Y,0,"             ");
+	//int xCord = calcCentered(speedBuff);
+	mvwprintw(win,SPEED_Y,0,speedBuff);
 	wrefresh(win);
-	
+
 }
 
 void dispSpeedKph(const int32_t speedKph){
 	char speedBuff[10];
 	sprintf(speedBuff,"%d Kph",speedKph);
-	mvwprintw(win,SPEED_Y,20,"           ");
-	int xCord = calcCentered(speedBuff);
-	mvwprintw(win,SPEED_Y,xCord,speedBuff);
+	mvwprintw(win,SPEED_Y,0,"           ");
+	//int xCord = calcCentered(speedBuff);
+	mvwprintw(win,SPEED_Y,0,speedBuff);
 	wrefresh(win);
 }
 
 void dispFuelLevel(const int32_t levelPersent){
-	char persentBuff[7];
+	char persentBuff[6];
 	sprintf(persentBuff,"%d%s",levelPersent,"%%");
-	mvwprintw(win,FUEL_Y,FUEL_X,"      ");
-	mvwprintw(win,FUEL_Y,FUEL_X,persentBuff);
+	mvwprintw(win,FUEL_Y+1,FUEL_X,"      ");
+	mvwprintw(win,FUEL_Y+1,FUEL_X,persentBuff);
+	mvwprintw(win,FUEL_Y,FUEL_X,"Fuel");
 	wrefresh(win);
 }
 
 void dispRpm(const int32_t rpm){
 	char rpmBuff[11];
 	sprintf(rpmBuff,"%d RPM",rpm);
-    int xCord = calcCentered(rpmBuff);
-	mvwprintw(win,RPM_Y,20,"           ");
-	mvwprintw(win,RPM_Y,xCord,rpmBuff);
+   // int xCord = calcCentered(rpmBuff);
+	mvwprintw(win,RPM_Y,0,"           ");
+	mvwprintw(win,RPM_Y,0,rpmBuff);
 	wrefresh(win);
 }
 
@@ -108,8 +115,8 @@ void dispPackName(const char* packName){
 	if(packName!=NULL){
 		wmove(win,PACK_Y,0);
 		wclrtoeol(win);
-    	int xCord = calcCentered(packName);
-		mvwprintw(win,PACK_Y,xCord,packName);
+		//int xCord = calcCentered(packName);
+		mvwprintw(win,PACK_Y,0,packName);
 		wrefresh(win);
 	}
 }
@@ -117,8 +124,8 @@ void dispChatRoomName(const char* roomName){
 	if(roomName!=NULL){
 		wmove(win,ROOM_Y,0);
 		wclrtoeol(win);
-		int xCord = calcCentered(roomName);
-		mvwprintw(win,ROOM_Y,xCord,roomName);
+		//int xCord = calcCentered(roomName);
+		mvwprintw(win,ROOM_Y,0,roomName);
 		wrefresh(win);
 	}
 }
@@ -132,7 +139,7 @@ void dispRoomMembers(){
 			}
 		}
 		for (int i = (numbMembers-1); i < ((FUEL_Y - USERS_Y_START)-numbMembers); i++){
-				mvwprintw(win,USERS_Y_START+i,USERS_X-1,"            ");
+				mvwprintw(win,USERS_Y_START+i,USERS_X-1,"                                 ");
 		}
 		wrefresh(win);
 	}
@@ -142,7 +149,7 @@ void addMember(const char* name){
 	if(name != NULL){
 		int length = sizeof(name);
 		if(roomMembers != NULL){
-			if((length!=0)&&(length<=32)){
+			if((length!=0)&&(length<=26)){
 				numbMembers++;
 				roomMembers = (char**) realloc(roomMembers,sizeof(char*)*(numbMembers));
 				char* newMember = (char*)malloc(length);
@@ -325,7 +332,7 @@ void strightArrowOn(){
 
 	mvwaddch(win,STRIGHT_Y,X_MID_POINT+2,0x5c);
 
-	mvwaddch(win,STRIGHT_Y-2,X_MID_POINT,'^');
+	mvwaddch(win,STRIGHT_Y-1,X_MID_POINT,45|A_ALTCHARSET);
 	mvwaddch(win,STRIGHT_Y-1,X_MID_POINT,120|A_ALTCHARSET);
 
     mvwaddch(win,STRIGHT_Y,X_MID_POINT,120|A_ALTCHARSET);
@@ -367,8 +374,8 @@ void setSpkrMuteIcon(const uint8_t spkrState){
 void endWindow(){
 	if (win!=NULL){
 		curs_set(1);
-    	delwin(win);
-		if(roomMembers != NULL) cleanUp();
+		delwin(win);
+	//	if(roomMembers != NULL) cleanUp();
 		endwin();
 	}
 }
